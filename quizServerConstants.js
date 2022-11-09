@@ -1,12 +1,12 @@
 //
-//  Database (Railway)
+//  Database (ElephantSQL)
 //
 exports.REMOTE_KNEX_CLIENT = 'pg'
-exports.REMOTE_KNEX_PORT = 6436
-exports.REMOTE_KNEX_HOST = 'containers-us-west-71.railway.app'
-exports.REMOTE_KNEX_USER = 'postgres'
-exports.REMOTE_KNEX_PWD = 'cfMC0QKSa86EIbpBdqfk'
-exports.REMOTE_KNEX_DATABASE = 'railway'
+exports.REMOTE_KNEX_PORT = 5432
+exports.REMOTE_KNEX_HOST = 'rosie.db.elephantsql.com'
+exports.REMOTE_KNEX_USER = 'wdscnzxj'
+exports.REMOTE_KNEX_PWD = 'O-7H6IKT6Hhi_xGU7J_rHSBjvbNO218s'
+exports.REMOTE_KNEX_DATABASE = 'wdscnzxj'
 exports.REMOTE_URL_PORT = 29001
 //
 //  Database (Local)
