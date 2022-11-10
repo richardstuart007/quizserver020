@@ -5,8 +5,9 @@
   "description": "Quiz Server",
   "main": "script.js",
   "scripts": {
-    "start": "node quizServerRemote.js",
-    "startlocalremote": "node quizServerLocalRemote.js",
+    "start": "node quizServerRemote2.js",
+    "startlocalremote1": "node quizServerLocalRemote1.js",
+    "startlocalremote2": "node quizServerLocalRemote2.js",
     "startlocal": "node quizServerLocal.js",
     "devstart": "nodemon quizServerLocal.js"
   },
@@ -28,12 +29,5 @@
   },
   "engines": {
     "node": "16.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/richardstuart007/quizserver020.git"
-  },
-  "bugs": {
-    "url": "https://github.com/richardstuart007/quizserver020/issues"
   }
 }

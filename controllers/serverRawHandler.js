@@ -121,7 +121,7 @@ async function serverRawHandler(db, bodyParms) {
     // Errors
     //
   } catch (err) {
-    console.debugLog(err.message)
+    console.log(err.message)
     returnObject.returnCatch = true
     returnObject.returnCatchMsg = err.message
     returnObject.returnCatchFunction = CatchFunction
@@ -196,7 +196,7 @@ async function serverRawserverRawait(
     // Errors
     //
   } catch (err) {
-    console.debugLog(err.message)
+    console.log(err.message)
     returnObject.returnCatch = true
     returnObject.returnCatchMsg = err.message
     returnObject.returnCatchFunction = CatchFunction

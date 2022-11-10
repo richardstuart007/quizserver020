@@ -19,18 +19,18 @@ const serverTest = require('./controllers/serverTest')
 //  Counter
 //
 let logCounter = 0
-const quizserver = 'quizServerRemote'
+const quizserver = 'quizServerRemote2'
 //
 // Constants
 //
 const {
-  REMOTE_KNEX_PORT,
-  REMOTE_KNEX_CLIENT,
-  REMOTE_KNEX_HOST,
-  REMOTE_KNEX_USER,
-  REMOTE_KNEX_PWD,
-  REMOTE_KNEX_DATABASE,
-  REMOTE_URL_PORT,
+  REMOTE2_KNEX_PORT,
+  REMOTE2_KNEX_CLIENT,
+  REMOTE2_KNEX_HOST,
+  REMOTE2_KNEX_USER,
+  REMOTE2_KNEX_PWD,
+  REMOTE2_KNEX_DATABASE,
+  REMOTE2_URL_PORT,
   URL_SIGNIN,
   URL_TABLES,
   URL_REGISTER,
@@ -40,20 +40,20 @@ const {
 // Knex
 //
 const db = knex({
-  client: REMOTE_KNEX_CLIENT,
+  client: REMOTE2_KNEX_CLIENT,
   connection: {
-    host: REMOTE_KNEX_HOST,
-    port: REMOTE_KNEX_PORT,
-    user: REMOTE_KNEX_USER,
-    password: REMOTE_KNEX_PWD,
-    database: REMOTE_KNEX_DATABASE
+    host: REMOTE2_KNEX_HOST,
+    port: REMOTE2_KNEX_PORT,
+    user: REMOTE2_KNEX_USER,
+    password: REMOTE2_KNEX_PWD,
+    database: REMOTE2_KNEX_DATABASE
   }
 })
 //
 //
 
 console.log(
-  `Database Connection==> Client(${REMOTE_KNEX_CLIENT}) host(${REMOTE_KNEX_HOST}) port(${REMOTE_KNEX_PORT}) user(${REMOTE_KNEX_USER}) database(${REMOTE_KNEX_DATABASE})`
+  `Database Connection==> Client(${REMOTE2_KNEX_CLIENT}) host(${REMOTE2_KNEX_HOST}) port(${REMOTE2_KNEX_PORT}) user(${REMOTE2_KNEX_USER}) database(${REMOTE2_KNEX_DATABASE})`
 )
 //
 // Express & Cors
@@ -96,8 +96,8 @@ app.post(URL_REGISTER, (req, res) => {
 //.  Start Server
 //.............................................................................
 const TimeStamp = format(new Date(), 'yyLLddHHmmss')
-let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${REMOTE_URL_PORT})`
-app.listen(REMOTE_URL_PORT, () => {
+let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${REMOTE2_URL_PORT})`
+app.listen(REMOTE2_URL_PORT, () => {
   console.log(logMessage)
 })
 //.............................................................................
