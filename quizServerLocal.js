@@ -11,6 +11,7 @@ const { format } = require('date-fns')
 const serverRaw = require('./controllers/serverRaw')
 const serverRegister = require('./controllers/serverRegister')
 const serverSignin = require('./controllers/serverSignin')
+const serverTest = require('./controllers/serverTest')
 //..............................................................................
 //.  Initialisation
 //.............................................................................
@@ -31,7 +32,8 @@ const {
   LOCAL_URL_PORT,
   URL_SIGNIN,
   URL_TABLES,
-  URL_REGISTER
+  URL_REGISTER,
+  URL_TEST
 } = require('./quizServerConstants.js')
 //
 // Knex (LOCAL)
@@ -57,6 +59,13 @@ console.log(
 const app = express()
 app.use(express.json())
 app.use(cors())
+//.............................................................................
+//.  Routes - Test
+//.............................................................................
+app.post(URL_TEST, (req, res) => {
+  logRawTables(req, 'POST', 'TEST', 'serverTest')
+  serverTest.serverTest(req, res, logCounter)
+})
 //.............................................................................
 //.  Routes - Tables
 //.............................................................................

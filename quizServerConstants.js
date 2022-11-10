@@ -23,3 +23,4 @@ exports.LOCAL_URL_PORT = 28001
 exports.URL_TABLES = '/QuizTables'
 exports.URL_REGISTER = '/QuizRegister'
 exports.URL_SIGNIN = '/QuizSignin'
+exports.URL_TEST = '/QuizTest'

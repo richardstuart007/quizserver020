@@ -1,16 +1,16 @@
 //!==================================================================================
-//! Run Raw SQL
+//! Run Test SQL
 //!==================================================================================
 //
 // Constants
 //
-const debugLog = false
-const reference = 'serverRawHandler'
+const debugLog = true
+const reference = 'serverTestHandler'
 //
 //  Global Variable - Define return object
 //
-const CatchFunction = 'serverRawHandler'
-const SqlFunction = 'serverRawHandler'
+const CatchFunction = 'serverTestHandler'
+const SqlFunction = 'serverTestHandler'
 var returnObject = {
   returnValue: '',
   returnMessage: '',
@@ -21,9 +21,9 @@ var returnObject = {
   returnRows: []
 }
 //==================================================================================
-//= Main ASYNC Function
+//= Main  Function
 //==================================================================================
-async function serverRawHandler(db, bodyParms) {
+function serverTestHandler(bodyParms) {
   try {
     //
     // Initialise Global Variables
@@ -41,9 +41,8 @@ async function serverRawHandler(db, bodyParms) {
     //
     //  Destructure Parameters
     //
-    const { sqlAction, sqlString, sqlTable, sqlWhere, sqlOrderByRaw, sqlRow, sqlKeyName } =
-      bodyParms
-    if (debugLog) console.log(`${reference} - sqlAction ${sqlAction} sqlRow ${sqlRow} `)
+    const { sqlAction, sqlString, sqlTable, sqlRow } = bodyParms
+    if (debugLog) console.log(`${reference} - sqlAction ${sqlAction} sqlRow ${sqlRow}`)
     if (debugLog) console.log(reference, 'bodyParms ', bodyParms)
     //
     // Check values sent
@@ -57,6 +56,7 @@ async function serverRawHandler(db, bodyParms) {
     //  Validate sqlAction type
     //
     if (
+      sqlAction !== 'TEST' &&
       sqlAction !== 'DELETE' &&
       sqlAction !== 'EXIST' &&
       sqlAction !== 'SELECTSQL' &&
@@ -86,22 +86,9 @@ async function serverRawHandler(db, bodyParms) {
       return returnObject
     }
     //
-    // Get Database record (ASYNC)
+    // Get Database record
     //
-    const responseSql = await serverRawserverRawait(
-      db,
-      sqlAction,
-      sqlString,
-      sqlTable,
-      sqlWhere,
-      sqlOrderByRaw,
-      sqlRow,
-      sqlKeyName
-    )
-    //
-    // Return Results
-    //
-    await responseSql
+    const responseSql = [{ g3id: 'Richard', g3title: 'Richard' }]
     if (debugLog) console.log(reference, 'responseSql ', responseSql)
     //
     // Update Return Values
@@ -121,7 +108,7 @@ async function serverRawHandler(db, bodyParms) {
     // Errors
     //
   } catch (err) {
-    console.debugLog(err.message)
+    console.log(err.message)
     returnObject.returnCatch = true
     returnObject.returnCatchMsg = err.message
     returnObject.returnCatchFunction = CatchFunction
@@ -130,82 +117,8 @@ async function serverRawHandler(db, bodyParms) {
   }
 }
 //!==================================================================================
-//! Main function - Await
-//!==================================================================================
-async function serverRawserverRawait(
-  db,
-  sqlAction,
-  sqlString,
-  sqlTable,
-  sqlWhere,
-  sqlOrderByRaw,
-  sqlRow,
-  sqlKeyName
-) {
-  //
-  // Define Return Variable
-  //
-  var ResultSql = false
-  //
-  //
-  try {
-    switch (sqlAction) {
-      case 'SELECTSQL':
-        ResultSql = await db.select(db.raw(sqlString))
-        break
-      case 'SELECT':
-        if (sqlOrderByRaw) {
-          ResultSql = await db
-            .select('*')
-            .from(sqlTable)
-            .whereRaw(sqlWhere)
-            .orderByRaw(sqlOrderByRaw)
-        } else {
-          ResultSql = await db.select('*').from(sqlTable).whereRaw(sqlWhere)
-        }
-        break
-      case 'UPDATE':
-        ResultSql = await db.update(sqlRow).from(sqlTable).whereRaw(sqlWhere).returning(['*'])
-        break
-      case 'DELETE':
-        ResultSql = await db.del().from(sqlTable).whereRaw(sqlWhere).returning(['*'])
-        break
-      case 'INSERT':
-        ResultSql = await db
-          .insert(sqlRow)
-          .into(sqlTable)
-          .returning(['*'])
-          .onConflict(sqlKeyName)
-          .ignore()
-        break
-      case 'UPSERT':
-        ResultSql = await db
-          .insert(sqlRow)
-          .into(sqlTable)
-          .returning(['*'])
-          .onConflict(sqlKeyName)
-          .merge()
-        break
-    }
-    //
-    // Return Record found
-    //
-    await ResultSql
-    return ResultSql
-    //
-    // Errors
-    //
-  } catch (err) {
-    console.debugLog(err.message)
-    returnObject.returnCatch = true
-    returnObject.returnCatchMsg = err.message
-    returnObject.returnCatchFunction = CatchFunction
-    return null
-  }
-}
-//!==================================================================================
 //! Exports
 //!==================================================================================
 module.exports = {
-  serverRawHandler
+  serverTestHandler
 }

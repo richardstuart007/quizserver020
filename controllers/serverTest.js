@@ -1,17 +1,17 @@
 //==================================================================================
-//= Process a RAW fetch request from server route
+//= Process a TEST dummy fetch request from server route
 //==================================================================================
 const { format } = require('date-fns')
-const serverRawHandler = require('./serverRawHandler')
+const serverTestHandler = require('./serverTestHandler')
 //
 // Constants
 //
-const debugLog = false
-const reference = 'serverRaw'
+const debugLog = true
+const reference = 'serverTest'
 //
 //  Global Variable - Define return object
 //
-const CatchFunction = 'serverRaw'
+const CatchFunction = 'serverTest'
 var returnObject = {
   returnValue: '',
   returnMessage: '',
@@ -24,7 +24,7 @@ var returnObject = {
 //==================================================================================
 //= Get a row from a table : table, keyName, keyValue are passed in Body
 //==================================================================================
-async function serverRaw(req, res, db, debugLogCounter) {
+function serverTest(req, res, debugLogCounter) {
   //
   //  Time Stamp
   //
@@ -67,6 +67,7 @@ async function serverRaw(req, res, db, debugLogCounter) {
     //  Validate sqlAction type
     //
     if (
+      sqlAction !== 'TEST' &&
       sqlAction !== 'DELETE' &&
       sqlAction !== 'EXIST' &&
       sqlAction !== 'SELECTSQL' &&
@@ -80,14 +81,14 @@ async function serverRaw(req, res, db, debugLogCounter) {
       return res.status(400).json(returnObject)
     }
     //
-    // Process Request Promises(ALL)
+    // Process Request
     //
-    const returnData = await Promise.all([serverRawHandler.serverRawHandler(db, bodyParms)])
+    const returnData = serverTestHandler.serverTestHandler(bodyParms)
     if (debugLog) console.log(reference, 'returnData ', returnData)
     //
     // Parse Results
     //
-    const returnDataObject = returnData[0]
+    const returnDataObject = returnData
     if (debugLog) console.log(reference, 'returnDataObject ', returnDataObject)
     returnObject = Object.assign({}, returnObject, returnDataObject)
     if (debugLog) console.log(reference, 'returnObject ', returnObject)
@@ -129,5 +130,5 @@ async function serverRaw(req, res, db, debugLogCounter) {
 //! Exports
 //!==================================================================================
 module.exports = {
-  serverRaw
+  serverTest
 }
