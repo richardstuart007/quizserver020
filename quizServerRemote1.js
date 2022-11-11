@@ -66,7 +66,7 @@ app.use(express.json())
 app.use(cors())
 const corsOptions = {
   origin: true,
-  methods: 'POST,DELETE',
+  methods: 'POST,DELETE, OPTIONS, GET, HEAD',
   credentials: true,
   maxAge: 3600,
   optionsSuccessStatus: 200
