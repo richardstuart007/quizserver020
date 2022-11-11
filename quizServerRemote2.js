@@ -50,45 +50,56 @@ const db = knex({
   }
 })
 //
+//  Connection log
 //
-
 console.log(
   `Database Connection==> Client(${REMOTE2_KNEX_CLIENT}) host(${REMOTE2_KNEX_HOST}) port(${REMOTE2_KNEX_PORT}) user(${REMOTE2_KNEX_USER}) database(${REMOTE2_KNEX_DATABASE})`
 )
 //
-// Express & Cors
+// Express
 //
 const app = express()
 app.use(express.json())
+//
+//  CORS Setup
+//
 app.use(cors())
+const corsOptions = {
+  origin: '*',
+  methods: 'POST,DELETE',
+  credentials: true,
+  maxAge: 3600,
+  optionsSuccessStatus: 200
+}
+app.options('*', cors(corsOptions))
 //.............................................................................
 //.  Routes - Test
 //.............................................................................
-app.post(URL_TEST, (req, res) => {
+app.post(URL_TEST, cors(), (req, res) => {
   logRawTables(req, 'POST', 'TEST', 'serverTest')
   serverTest.serverTest(req, res, logCounter)
 })
 //.............................................................................
 //.  Routes - Tables
 //.............................................................................
-app.post(URL_TABLES, (req, res) => {
+app.post(URL_TABLES, cors(), (req, res) => {
   logRawTables(req, 'POST', 'RAW', 'serverRaw')
   serverRaw.serverRaw(req, res, db, logCounter)
 })
 
-app.delete(URL_TABLES, (req, res) => {
+app.delete(URL_TABLES, cors(), (req, res) => {
   logRawTables(req, 'DELETE', 'RAW', 'serverRaw')
   serverRaw.serverRaw(req, res, db, logCounter)
 })
 //.............................................................................
 //.  Routes - Register/SignIn
 //.............................................................................
-app.post(URL_SIGNIN, (req, res) => {
+app.post(URL_SIGNIN, cors(), (req, res) => {
   logRawSignIn(req, 'POST Signin')
   serverSignin.serverSignin(req, res, db, logCounter)
 })
 
-app.post(URL_REGISTER, (req, res) => {
+app.post(URL_REGISTER, cors(), (req, res) => {
   logRawSignIn(req, 'POST Register')
   serverRegister.serverRegister(req, res, db, logCounter)
 })
