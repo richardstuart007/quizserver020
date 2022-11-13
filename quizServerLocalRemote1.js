@@ -2,7 +2,6 @@
 //  Libraries
 //
 const express = require('express')
-const cors = require('cors')
 const knex = require('knex')
 const { format } = require('date-fns')
 //
@@ -61,45 +60,41 @@ console.log(
 const app = express()
 app.use(express.json())
 //
-//  CORS Setup
+//  CORS Middleware
 //
-app.use(cors())
-const corsOptions = {
-  origin: true,
-  methods: 'POST,DELETE, OPTIONS, GET, HEAD',
-  credentials: true,
-  maxAge: 3600,
-  optionsSuccessStatus: 200
-}
-app.options('*', cors(corsOptions))
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
 //.............................................................................
 //.  Routes - Test
 //.............................................................................
-app.post(URL_TEST, cors(), (req, res) => {
+app.post(URL_TEST, (req, res) => {
   logRawTables(req, 'POST', 'TEST', 'serverTest')
   serverTest.serverTest(req, res, logCounter)
 })
 //.............................................................................
 //.  Routes - Tables
 //.............................................................................
-app.post(URL_TABLES, cors(), (req, res) => {
+app.post(URL_TABLES, (req, res) => {
   logRawTables(req, 'POST', 'RAW', 'serverRaw')
   serverRaw.serverRaw(req, res, db, logCounter)
 })
 
-app.delete(URL_TABLES, cors(), (req, res) => {
+app.delete(URL_TABLES, (req, res) => {
   logRawTables(req, 'DELETE', 'RAW', 'serverRaw')
   serverRaw.serverRaw(req, res, db, logCounter)
 })
 //.............................................................................
 //.  Routes - Register/SignIn
 //.............................................................................
-app.post(URL_SIGNIN, cors(), (req, res) => {
+app.post(URL_SIGNIN, (req, res) => {
   logRawSignIn(req, 'POST Signin')
   serverSignin.serverSignin(req, res, db, logCounter)
 })
 
-app.post(URL_REGISTER, cors(), (req, res) => {
+app.post(URL_REGISTER, (req, res) => {
   logRawSignIn(req, 'POST Register')
   serverRegister.serverRegister(req, res, db, logCounter)
 })
