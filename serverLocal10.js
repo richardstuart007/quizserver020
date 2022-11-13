@@ -3,6 +3,7 @@
 //
 const express = require('express')
 const knex = require('knex')
+const cors = require('cors')
 const { format } = require('date-fns')
 //
 //  Sub components
@@ -18,42 +19,39 @@ const serverTest = require('./controllers/serverTest')
 //  Counter
 //
 let logCounter = 0
-const quizserver = 'quizServerLocalRemote1'
+const quizserver = 'serverLocal10'
 //
 // Constants
 //
 const {
-  REMOTE1_KNEX_PORT,
-  REMOTE1_KNEX_CLIENT,
-  REMOTE1_KNEX_HOST,
-  REMOTE1_KNEX_USER,
-  REMOTE1_KNEX_PWD,
-  REMOTE1_KNEX_DATABASE,
-  LOC_REM1_PORT,
+  L10_KNEX_CLIENT,
+  L10_KNEX_HOST,
+  L10_KNEX_USER,
+  L10_KNEX_PWD,
+  L10_KNEX_DATABASE,
+  L10_PORT,
   URL_SIGNIN,
   URL_TABLES,
   URL_REGISTER,
-  URL_TEST,
-  CORS_WHITELIST
-} = require('./quizServerConstants.js')
+  URL_TEST
+} = require('./constants.js')
 //
 // Knex
 //
 const db = knex({
-  client: REMOTE1_KNEX_CLIENT,
+  client: L10_KNEX_CLIENT,
   connection: {
-    host: REMOTE1_KNEX_HOST,
-    port: REMOTE1_KNEX_PORT,
-    user: REMOTE1_KNEX_USER,
-    password: REMOTE1_KNEX_PWD,
-    database: REMOTE1_KNEX_DATABASE
+    host: L10_KNEX_HOST,
+    user: L10_KNEX_USER,
+    password: L10_KNEX_PWD,
+    database: L10_KNEX_DATABASE
   }
 })
 //
 //  Connection log
 //
 console.log(
-  `Database Connection==> Client(${REMOTE1_KNEX_CLIENT}) host(${REMOTE1_KNEX_HOST}) port(${REMOTE1_KNEX_PORT}) user(${REMOTE1_KNEX_USER}) database(${REMOTE1_KNEX_DATABASE})`
+  `Database Connection==> Client(${L10_KNEX_CLIENT}) host(${L10_KNEX_HOST}) user(${L10_KNEX_USER}) database(${L10_KNEX_DATABASE})`
 )
 //
 // Express
@@ -63,15 +61,13 @@ app.use(express.json())
 //
 //  CORS Middleware
 //
-app.use((req, res, next) => {
-  const corsWhitelist = CORS_WHITELIST
-  if (corsWhitelist.includes(req.headers.origin)) {
-    res.header('Access-Control-Allow-Origin', req.headers.origin)
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
-  }
-  next()
-})
+app.use(
+  cors({
+    allowHeaders: '*',
+    allowMethods: '*',
+    origin: '*'
+  })
+)
 //.............................................................................
 //.  Routes - Test
 //.............................................................................
@@ -107,8 +103,8 @@ app.post(URL_REGISTER, (req, res) => {
 //.  Start Server
 //.............................................................................
 const TimeStamp = format(new Date(), 'yyLLddHHmmss')
-let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${LOC_REM1_PORT})`
-app.listen(LOC_REM1_PORT, () => {
+let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${L10_PORT})`
+app.listen(L10_PORT, () => {
   console.log(logMessage)
 })
 //.............................................................................

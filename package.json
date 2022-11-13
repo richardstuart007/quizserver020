@@ -4,11 +4,15 @@
   "description": "Quiz Server",
   "main": "script.js",
   "scripts": {
-    "start": "node quizServerRemote2.js",
-    "startlocalremote1": "node quizServerLocalRemote1.js",
-    "startlocalremote2": "node quizServerLocalRemote2.js",
-    "startlocal": "node quizServerLocal.js",
-    "devstart": "nodemon quizServerLocal.js"
+    "start": "node serverRemote20.js",
+    "serverlocal10": "node serverLocal10.js",
+    "serverlocal20": "node serverLocal20.js",
+    "serverlocalremote10": "node serverLocalRemote10.js",
+    "serverlocalremote20": "node serverLocalRemote20.js",
+    "serverremote10": "node serverRemote10.js",
+    "serverremote20": "node serverRemote20.js",
+    "devserverlocal10": "nodemon serverLocal10.js",
+    "devserverlocal20": "nodemon serverLocal20.js"
   },
   "author": "Richard",
   "license": "ISC",

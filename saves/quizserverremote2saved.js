@@ -3,14 +3,15 @@
 //
 const express = require('express')
 const knex = require('knex')
+const cors = require('cors')
 const { format } = require('date-fns')
 //
 //  Sub components
 //
-const serverRaw = require('./controllers/serverRaw')
-const serverRegister = require('./controllers/serverRegister')
-const serverSignin = require('./controllers/serverSignin')
-const serverTest = require('./controllers/serverTest')
+const serverRaw = require('../controllers/serverRaw')
+const serverRegister = require('../controllers/serverRegister')
+const serverSignin = require('../controllers/serverSignin')
+const serverTest = require('../controllers/serverTest')
 //..............................................................................
 //.  Initialisation
 //.............................................................................
@@ -18,40 +19,41 @@ const serverTest = require('./controllers/serverTest')
 //  Counter
 //
 let logCounter = 0
-const quizserver = 'quizServerLocal'
+const quizserver = 'quizServerRemote2'
 //
 // Constants
 //
 const {
-  LOCAL_KNEX_CLIENT,
-  LOCAL_KNEX_HOST,
-  LOCAL_KNEX_USER,
-  LOCAL_KNEX_PWD,
-  LOCAL_KNEX_DATABASE,
-  LOC_LOC_PORT,
+  R20_KNEX_PORT,
+  R20_KNEX_CLIENT,
+  R20_KNEX_HOST,
+  R20_KNEX_USER,
+  R20_KNEX_PWD,
+  R20_KNEX_DATABASE,
+  R20_PORT,
   URL_SIGNIN,
   URL_TABLES,
   URL_REGISTER,
-  URL_TEST,
-  CORS_WHITELIST
-} = require('./quizServerConstants.js')
+  URL_TEST
+} = require('../constants.js')
 //
-// Knex (LOCAL)
+// Knex
 //
 const db = knex({
-  client: LOCAL_KNEX_CLIENT,
+  client: R20_KNEX_CLIENT,
   connection: {
-    host: LOCAL_KNEX_HOST,
-    user: LOCAL_KNEX_USER,
-    password: LOCAL_KNEX_PWD,
-    database: LOCAL_KNEX_DATABASE
+    host: R20_KNEX_HOST,
+    port: R20_KNEX_PORT,
+    user: R20_KNEX_USER,
+    password: R20_KNEX_PWD,
+    database: R20_KNEX_DATABASE
   }
 })
 //
 //  Connection log
 //
 console.log(
-  `Database Connection==> Client(${LOCAL_KNEX_CLIENT}) host(${LOCAL_KNEX_HOST}) user(${LOCAL_KNEX_USER}) database(${LOCAL_KNEX_DATABASE})`
+  `Database Connection==> Client(${R20_KNEX_CLIENT}) host(${R20_KNEX_HOST}) port(${R20_KNEX_PORT}) user(${R20_KNEX_USER}) database(${R20_KNEX_DATABASE})`
 )
 //
 // Express
@@ -61,15 +63,23 @@ app.use(express.json())
 //
 //  CORS Middleware
 //
-app.use((req, res, next) => {
-  const corsWhitelist = CORS_WHITELIST
-  if (corsWhitelist.includes(req.headers.origin)) {
-    res.header('Access-Control-Allow-Origin', req.headers.origin)
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
-  }
-  next()
-})
+app.use(
+  cors({
+    allowHeaders: '*',
+    allowMethods: '*',
+    origin: '*'
+  })
+)
+// app.use((req, res, next) => {
+//   const corsWhitelist = CORS_WHITELIST
+//   if (corsWhitelist.includes(req.headers.origin) || true === true) {
+//     res.header('Access-Control-Allow-Origin', '*')
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+//     res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
+//     res.header('Access-Control-Allow-Credentials', true)
+//   }
+//   next()
+// })
 //.............................................................................
 //.  Routes - Test
 //.............................................................................
@@ -105,8 +115,8 @@ app.post(URL_REGISTER, (req, res) => {
 //.  Start Server
 //.............................................................................
 const TimeStamp = format(new Date(), 'yyLLddHHmmss')
-let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${LOC_LOC_PORT})`
-app.listen(LOC_LOC_PORT, () => {
+let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${R20_PORT})`
+app.listen(R20_PORT, () => {
   console.log(logMessage)
 })
 //.............................................................................
