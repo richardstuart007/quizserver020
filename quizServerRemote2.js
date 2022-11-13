@@ -78,6 +78,7 @@ app.use((req, res, next) => {
 app.post(URL_TEST, (req, res) => {
   logRawTables(req, 'POST', 'TEST', 'serverTest')
   serverTest.serverTest(req, res, logCounter)
+  res.set('Access-Control-Allow-Origin', '*')
 })
 //.............................................................................
 //.  Routes - Tables
@@ -85,11 +86,13 @@ app.post(URL_TEST, (req, res) => {
 app.post(URL_TABLES, (req, res) => {
   logRawTables(req, 'POST', 'RAW', 'serverRaw')
   serverRaw.serverRaw(req, res, db, logCounter)
+  res.set('Access-Control-Allow-Origin', '*')
 })
 
 app.delete(URL_TABLES, (req, res) => {
   logRawTables(req, 'DELETE', 'RAW', 'serverRaw')
   serverRaw.serverRaw(req, res, db, logCounter)
+  res.set('Access-Control-Allow-Origin', '*')
 })
 //.............................................................................
 //.  Routes - Register/SignIn
@@ -97,11 +100,13 @@ app.delete(URL_TABLES, (req, res) => {
 app.post(URL_SIGNIN, (req, res) => {
   logRawSignIn(req, 'POST Signin')
   serverSignin.serverSignin(req, res, db, logCounter)
+  res.set('Access-Control-Allow-Origin', '*')
 })
 
 app.post(URL_REGISTER, (req, res) => {
   logRawSignIn(req, 'POST Register')
   serverRegister.serverRegister(req, res, db, logCounter)
+  res.set('Access-Control-Allow-Origin', '*')
 })
 //..............................................................................
 //.  Start Server
