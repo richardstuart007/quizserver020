@@ -3,6 +3,7 @@
 //
 const express = require('express')
 const knex = require('knex')
+const cors = require('cors')
 const { format } = require('date-fns')
 //
 //  Sub components
@@ -33,8 +34,7 @@ const {
   URL_SIGNIN,
   URL_TABLES,
   URL_REGISTER,
-  URL_TEST,
-  CORS_WHITELIST
+  URL_TEST
 } = require('./quizServerConstants.js')
 //
 // Knex
@@ -62,16 +62,23 @@ const app = express()
 //
 //  CORS Middleware
 //
-app.use((req, res, next) => {
-  const corsWhitelist = CORS_WHITELIST
-  if (corsWhitelist.includes(req.headers.origin) || true === true) {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
-    res.header('Access-Control-Allow-Credentials', true)
-  }
-  next()
-})
+app.use(
+  cors({
+    allowHeaders: '*',
+    allowMethods: '*',
+    origin: '*'
+  })
+)
+// app.use((req, res, next) => {
+//   const corsWhitelist = CORS_WHITELIST
+//   if (corsWhitelist.includes(req.headers.origin) || true === true) {
+//     res.header('Access-Control-Allow-Origin', '*')
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+//     res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
+//     res.header('Access-Control-Allow-Credentials', true)
+//   }
+//   next()
+// })
 //.............................................................................
 //.  Routes - Test
 //.............................................................................
