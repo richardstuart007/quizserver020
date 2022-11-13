@@ -65,7 +65,7 @@ const app = express()
 app.use((req, res, next) => {
   const corsWhitelist = CORS_WHITELIST
   if (corsWhitelist.includes(req.headers.origin) || true === true) {
-    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Origin', req.headers.origin)
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
     res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
     res.header('Access-Control-Allow-Credentials', true)
