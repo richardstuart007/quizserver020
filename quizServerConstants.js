@@ -38,7 +38,7 @@ exports.URL_TEST = '/QuizTest'
 //  corsWhitelist
 //
 exports.CORS_WHITELIST = [
-  'https://app.netlify.com',
+  'https://quizclient020.netlify.app',
   'https://richardstuart007.github.io/',
   'https://quizclient010-production.up.railway.app/'
 ]
