@@ -29,7 +29,7 @@ const {
   REMOTE2_KNEX_USER,
   REMOTE2_KNEX_PWD,
   REMOTE2_KNEX_DATABASE,
-  REMOTE2_URL_PORT,
+  LOC_REM2_PORT,
   URL_SIGNIN,
   URL_TABLES,
   URL_REGISTER,
@@ -65,9 +65,10 @@ app.use(express.json())
 //
 app.use((req, res, next) => {
   const corsWhitelist = CORS_WHITELIST
-  if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
+  if (corsWhitelist.includes(req.headers.origin)) {
     res.header('Access-Control-Allow-Origin', req.headers.origin)
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
   }
   next()
 })
@@ -106,8 +107,8 @@ app.post(URL_REGISTER, (req, res) => {
 //.  Start Server
 //.............................................................................
 const TimeStamp = format(new Date(), 'yyLLddHHmmss')
-let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${REMOTE2_URL_PORT})`
-app.listen(REMOTE2_URL_PORT, () => {
+let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${LOC_REM2_PORT})`
+app.listen(LOC_REM2_PORT, () => {
   console.log(logMessage)
 })
 //.............................................................................

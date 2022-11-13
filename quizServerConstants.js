@@ -22,11 +22,10 @@ exports.REMOTE2_URL_PORT = 21121
 //  Database (Local)
 //
 exports.LOCAL_KNEX_CLIENT = 'pg'
-exports.LOCAL_KNEX_HOST = '127.0.0.1'
+exports.LOCAL_KNEX_HOST = 'localhost'
 exports.LOCAL_KNEX_USER = 'richa'
 exports.LOCAL_KNEX_PWD = 'london'
 exports.LOCAL_KNEX_DATABASE = 'Quiz020'
-exports.LOCAL_URL_PORT = 20001
 //
 //  URL
 //
@@ -39,6 +38,21 @@ exports.URL_TEST = '/QuizTest'
 //
 exports.CORS_WHITELIST = [
   'https://quizclient020.netlify.app',
-  'https://richardstuart007.github.io/',
-  'https://quizclient010-production.up.railway.app/'
+  'https://richardstuart007.github.io',
+  'https://quizclient010-production.up.railway.app',
+  'https://localhost:20001',
+  'https://localhost:20011',
+  'https://localhost:20021'
 ]
+//---------------------------------------------------------------------
+//-  LOCAL Ports
+//---------------------------------------------------------------------
+//
+//  Local Server --> Local Database
+//
+exports.LOC_LOC_PORT = 20001
+//
+//  Local Server --> Remote Database 1/2
+//
+exports.LOC_REM1_PORT = 20011
+exports.LOC_REM2_PORT = 20021

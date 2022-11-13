@@ -65,9 +65,10 @@ app.use(express.json())
 //
 app.use((req, res, next) => {
   const corsWhitelist = CORS_WHITELIST
-  if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
+  if (corsWhitelist.includes(req.headers.origin)) {
     res.header('Access-Control-Allow-Origin', req.headers.origin)
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
   }
   next()
 })

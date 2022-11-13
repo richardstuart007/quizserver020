@@ -28,7 +28,7 @@ const {
   LOCAL_KNEX_USER,
   LOCAL_KNEX_PWD,
   LOCAL_KNEX_DATABASE,
-  LOCAL_URL_PORT,
+  LOC_LOC_PORT,
   URL_SIGNIN,
   URL_TABLES,
   URL_REGISTER,
@@ -58,13 +58,15 @@ console.log(
 //
 const app = express()
 app.use(express.json())
+//
 //  CORS Middleware
 //
 app.use((req, res, next) => {
   const corsWhitelist = CORS_WHITELIST
-  if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
+  if (corsWhitelist.includes(req.headers.origin)) {
     res.header('Access-Control-Allow-Origin', req.headers.origin)
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
   }
   next()
 })
@@ -103,8 +105,8 @@ app.post(URL_REGISTER, (req, res) => {
 //.  Start Server
 //.............................................................................
 const TimeStamp = format(new Date(), 'yyLLddHHmmss')
-let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${LOCAL_URL_PORT})`
-app.listen(LOCAL_URL_PORT, () => {
+let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${LOC_LOC_PORT})`
+app.listen(LOC_LOC_PORT, () => {
   console.log(logMessage)
 })
 //.............................................................................
