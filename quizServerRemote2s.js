@@ -33,7 +33,8 @@ const {
   URL_SIGNIN,
   URL_TABLES,
   URL_REGISTER,
-  URL_TEST
+  URL_TEST,
+  CORS_WHITELIST
 } = require('./quizServerConstants.js')
 //
 // Knex
@@ -62,11 +63,15 @@ app.use(express.json())
 //
 //  CORS Middleware
 //
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+app.use((req, res, next) => {
+  const corsWhitelist = CORS_WHITELIST
+  if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
+    res.header('Access-Control-Allow-Origin', req.headers.origin)
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  }
   next()
 })
+
 //.............................................................................
 //.  Routes - Test
 //.............................................................................

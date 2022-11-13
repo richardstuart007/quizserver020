@@ -34,3 +34,11 @@ exports.URL_TABLES = '/QuizTables'
 exports.URL_REGISTER = '/QuizRegister'
 exports.URL_SIGNIN = '/QuizSignin'
 exports.URL_TEST = '/QuizTest'
+//
+//  corsWhitelist
+//
+exports.CORS_WHITELIST = [
+  'https://app.netlify.com',
+  'https://richardstuart007.github.io/',
+  'https://quizclient010-production.up.railway.app/'
+]
