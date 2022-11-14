@@ -19,18 +19,18 @@ const serverTest = require('./controllers/serverTest')
 //  Counter
 //
 let logCounter = 0
-const quizserver = 'serverLocalRemote20'
+const quizserver = 'serverRemote20'
 //
 // Constants
 //
 const {
-  R20_KNEX_PORT,
-  R20_KNEX_CLIENT,
-  R20_KNEX_HOST,
-  R20_KNEX_USER,
-  R20_KNEX_PWD,
-  R20_KNEX_DATABASE,
-  LOC_R20_PORT,
+  R20R_KNEX_PORT,
+  R20R_KNEX_CLIENT,
+  R20R_KNEX_HOST,
+  R20R_KNEX_USER,
+  R20R_KNEX_PWD,
+  R20R_KNEX_DATABASE,
+  R20R_PORT,
   URL_SIGNIN,
   URL_TABLES,
   URL_REGISTER,
@@ -40,20 +40,20 @@ const {
 // Knex
 //
 const db = knex({
-  client: R20_KNEX_CLIENT,
+  client: R20R_KNEX_CLIENT,
   connection: {
-    host: R20_KNEX_HOST,
-    port: R20_KNEX_PORT,
-    user: R20_KNEX_USER,
-    password: R20_KNEX_PWD,
-    database: R20_KNEX_DATABASE
+    host: R20R_KNEX_HOST,
+    port: R20R_KNEX_PORT,
+    user: R20R_KNEX_USER,
+    password: R20R_KNEX_PWD,
+    database: R20R_KNEX_DATABASE
   }
 })
 //
 //  Connection log
 //
 console.log(
-  `Database Connection==> Client(${R20_KNEX_CLIENT}) host(${R20_KNEX_HOST}) port(${R20_KNEX_PORT}) user(${R20_KNEX_USER}) database(${R20_KNEX_DATABASE})`
+  `Database Connection==> Client(${R20R_KNEX_CLIENT}) host(${R20R_KNEX_HOST}) port(${R20R_KNEX_PORT}) user(${R20R_KNEX_USER}) database(${R20R_KNEX_DATABASE})`
 )
 //
 // Express
@@ -105,8 +105,8 @@ app.post(URL_REGISTER, (req, res) => {
 //.  Start Server
 //.............................................................................
 const TimeStamp = format(new Date(), 'yyLLddHHmmss')
-let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${LOC_R20_PORT})`
-app.listen(LOC_R20_PORT, () => {
+let logMessage = `SERVER.. ${logCounter} Time:${TimeStamp} QuizServer(${quizserver}) running on PORT(${R20R_PORT})`
+app.listen(R20R_PORT, () => {
   console.log(logMessage)
 })
 //.............................................................................

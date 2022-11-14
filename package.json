@@ -4,13 +4,15 @@
   "description": "Quiz Server",
   "main": "script.js",
   "scripts": {
-    "start": "node serverRemote20.js",
+    "start": "node serverRemote20R.js",
     "serverlocal10": "node serverLocal10.js",
     "serverlocal20": "node serverLocal20.js",
     "serverlocalremote10": "node serverLocalRemote10.js",
-    "serverlocalremote20": "node serverLocalRemote20.js",
+    "serverlocalremote20N": "node serverLocalRemote20N.js",
+    "serverlocalremote20R": "node serverLocalRemote20R.js",
     "serverremote10": "node serverRemote10.js",
-    "serverremote20": "node serverRemote20.js",
+    "serverremote20N": "node serverRemote20N.js",
+    "serverremote20R": "node serverRemote20R.js",
     "devserverlocal10": "nodemon serverLocal10.js",
     "devserverlocal20": "nodemon serverLocal20.js"
   },

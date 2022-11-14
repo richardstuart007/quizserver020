@@ -8,10 +8,10 @@ const { format } = require('date-fns')
 //
 //  Sub components
 //
-const serverRaw = require('../controllers/serverRaw')
-const serverRegister = require('../controllers/serverRegister')
-const serverSignin = require('../controllers/serverSignin')
-const serverTest = require('../controllers/serverTest')
+const serverRaw = require('./controllers/serverRaw')
+const serverRegister = require('./controllers/serverRegister')
+const serverSignin = require('./controllers/serverSignin')
+const serverTest = require('./controllers/serverTest')
 //..............................................................................
 //.  Initialisation
 //.............................................................................
@@ -19,7 +19,7 @@ const serverTest = require('../controllers/serverTest')
 //  Counter
 //
 let logCounter = 0
-const quizserver = 'quizServerRemote2'
+const quizserver = 'serverRemote20'
 //
 // Constants
 //
@@ -35,7 +35,7 @@ const {
   URL_TABLES,
   URL_REGISTER,
   URL_TEST
-} = require('../constants.js')
+} = require('./constants.js')
 //
 // Knex
 //
@@ -70,16 +70,6 @@ app.use(
     origin: '*'
   })
 )
-// app.use((req, res, next) => {
-//   const corsWhitelist = CORS_WHITELIST
-//   if (corsWhitelist.includes(req.headers.origin) || true === true) {
-//     res.header('Access-Control-Allow-Origin', '*')
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-//     res.header('Access-Control-Allow-Methods', 'POST,DELETE,OPTIONS')
-//     res.header('Access-Control-Allow-Credentials', true)
-//   }
-//   next()
-// })
 //.............................................................................
 //.  Routes - Test
 //.............................................................................
