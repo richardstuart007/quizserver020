@@ -19,7 +19,7 @@ const serverTest = require('./controllers/serverTest')
 //  Counter
 //
 let logCounter = 0
-const quizserver = 'serverRemote20'
+const quizserver = 'serverRemote20N'
 //
 // Constants
 //

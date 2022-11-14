@@ -79,7 +79,6 @@ exports.R20R_PORT = 51113
 //---------------------------------------------------------------------
 exports.CORS_WHITELIST = [
   'https://quizclient020.netlify.app',
-  'https://quizclient020.netlify.app/',
   'https://richardstuart007.github.io',
-  'https://quizclient010-production.up.railway.app'
+  'https://quizclient020-production.up.railway.app'
 ]
