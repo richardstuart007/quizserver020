@@ -2,8 +2,8 @@
 //  Libraries
 //
 const express = require('express')
-const knex = require('knex')
 const cors = require('cors')
+const knex = require('knex')
 const { format } = require('date-fns')
 //
 //  Sub components
