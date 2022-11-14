@@ -20,6 +20,7 @@ const serverTest = require('./controllers/serverTest')
 //
 let logCounter = 0
 const quizserver = 'serverRemote20R'
+const debugLog = true
 //
 // Constants
 //
@@ -34,7 +35,8 @@ const {
   URL_SIGNIN,
   URL_TABLES,
   URL_REGISTER,
-  URL_TEST
+  URL_TEST,
+  CORS_WHITELIST
 } = require('./constants.js')
 //
 // Knex
@@ -56,11 +58,54 @@ console.log(
   `Database Connection==> Client(${R20R_KNEX_CLIENT}) host(${R20R_KNEX_HOST}) port(${R20R_KNEX_PORT}) user(${R20R_KNEX_USER}) database(${R20R_KNEX_DATABASE})`
 )
 //
-// Express & Cors
+// Express
 //
 const app = express()
 app.use(express.json())
-app.use(cors())
+//
+//  CORS Middleware
+//
+app.use((req, res, next) => {
+  const headers = req.headers
+  if (debugLog) console.log('headers ', headers)
+  const body = req.body
+  if (debugLog) console.log('body ', body)
+  const origin = req.headers.origin
+  if (debugLog) console.log('origin ', origin)
+  const corsWhitelist = CORS_WHITELIST
+  if (debugLog) console.log('corsWhitelist ', corsWhitelist)
+  //
+  //  OK ?
+  //
+  let OriginOK = false
+  if (corsWhitelist.includes(origin) || !origin) {
+    OriginOK = true
+  }
+
+  if (OriginOK) {
+    res.header('Access-Control-Allow-Origin', origin)
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+    res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS')
+    res.header('Access-Control-Allow-Credentials', true)
+    if (debugLog) console.log('In whitelist ')
+    else {
+      if (debugLog) console.log('NOT In whitelist')
+      return
+    }
+  }
+  next()
+})
+//
+//  CORS Middleware
+//
+app.use(
+  cors({
+    allowHeaders: '*',
+    allowMethods: '*',
+    origin: '*'
+  })
+)
+
 //.............................................................................
 //.  Routes - Test
 //.............................................................................
